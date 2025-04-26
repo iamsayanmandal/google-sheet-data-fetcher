@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Sheet Data Fetcher</title>
+  
+  <!-- Style for creating a clean table layout -->
+  <style>
+    /* Basic table styling for better readability */
+    table {
+      width: 80%;             /* Control table width */
+      margin: 20px auto;     /* Center table horizontally */
+      border-collapse: collapse; /* Removed space between borders */
+    }
+    th, td {
+      padding: 8px;           /* Added internal spacing */
+      border: 1px solid #333; /* Define cell borders */
+      text-align: center;     /* Center-align content */
+    }
+    th {
+      background-color: #f4f4f4; /* Light gray header background */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main page heading -->
+  <h2 style="text-align:center;">Google Sheet Data Demo</h2>
+
+  <!-- Data container table with static headers -->
+  <table id="data-table">
+    <tr>
+      <!-- 
+        Table headers matching Google Sheet columns
+        Ensure these match the column order in our sheet:
+        1. ID | 2. Email | 3. Course | 4. Date | 5. Time 
+      -->
+      <th>ID</th>
+      <th>Email</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Time</th>
+    </tr>
+  </table>
+
+<script>
+// Public Google Sheet data fetcher using opensheet proxy service
+// Replace this URL with your own sheet's endpoint:
+// Format: https://opensheet.elk.sh/[SHEET_ID]/[SHEET_NAME]
+const sheetURL = 'https://opensheet.elk.sh/1NT1e-8Ye3J6q_4OoiicQIrI7ec5bS-qMk5jT6OupC8g/Sheet1';
+
+// Fetch data when page loads
+fetch(sheetURL)
+  .then(response => {
+    // Converted raw response to JSON format
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(data => {
+    // Get reference to the HTML table
+    const table = document.getElementById('data-table');
+    
+    // Process each row from the sheet data
+    data.forEach(row => {
+      // Create new table row at end of table
+      const newRow = table.insertRow();
+      
+      // Insert cells in specific order matching table headers:
+      // ID | Email | Course | Date | Time
+      newRow.insertCell(0).innerText = row.ID;     // First column
+      newRow.insertCell(1).innerText = row.Email;  // Second column
+      newRow.insertCell(2).innerText = row.Course; // Third column
+      newRow.insertCell(3).innerText = row.Date;   // Fourth column
+      newRow.insertCell(4).innerText = row.Time;   // Fifth column
+    });
+  })
+  .catch(error => {
+    // Basic error handling for failed fetch or processing
+    console.error('Failed to load sheet data:', error);
+    alert('Error loading data. Please check console for details.');
+  });
+</script>
+
+</body>
+</html>
