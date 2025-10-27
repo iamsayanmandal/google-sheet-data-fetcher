@@ -16,7 +16,7 @@ Simple project to fetch and display Google Sheet data in a clean HTML table usin
 - Open the file to see data fetched live
 
 ## Live Demo
-[Click Here](https:/iamsayanmandal.github.io/google-sheet-data-fetcher/SHEET.html)
+[Click Here](https:/iamsayanmandal.github.io/google-sheet-data-fetcher)
 
 ---
 
