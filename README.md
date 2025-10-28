@@ -20,4 +20,4 @@ Simple project to fetch and display Google Sheet data in a clean HTML table usin
 
 ---
 
-Made with ❤️ by Sayan Mandal
+# Made with ❤️ by Sayan Mandal
